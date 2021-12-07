@@ -30,8 +30,8 @@ class _Submarine {
         return this;
       case _DiveCommandType.up:
         _depth -= command.param;
-        if (_depth < 0) { // TODO Check
-          _depth = 0;
+        if (_depth < 0) {
+          throw UnsupportedError("depth < 0");
         }
         return this;
       case _DiveCommandType.down:

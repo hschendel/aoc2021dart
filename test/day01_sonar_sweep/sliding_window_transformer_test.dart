@@ -1,6 +1,6 @@
 import 'dart:convert';
 import 'package:test/test.dart';
-import '../../bin/day01b_sonar_sweep_sliding/day01b_sonar_sweep_sliding.dart';
+import '../../bin/day01_sonar_sweep/day01b_sonar_sweep_sliding.dart';
 
 void main() {
   final cases = <List<List<int>>>[
