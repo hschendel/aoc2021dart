@@ -2,7 +2,7 @@ import 'dart:async';
 import 'dart:io';
 import 'dart:convert';
 
-void main(List<String> arguments) async {
+void main() async {
   final file = File('input.txt');
   try {
     final increases = (await file
