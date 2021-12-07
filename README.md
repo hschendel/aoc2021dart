@@ -1,1 +1,1 @@
-A simple command-line application.
+My attempt to solve the Advent of Code using Dart.
