@@ -41,3 +41,8 @@ For the second part I first tried to implement a `StreamTransformer` that does t
 down, but then realized that I need to keep the whole list in memory anyway, so I resorted to
 a simple list-based approach. I have the feeling this could have been done better though...
 
+# Day 4
+
+Learned about the `try { ... } on SomeTypeException catch (e) { ... }` syntax.
+I miss Go's `defer` to always do `_lineNo++` on exiting `parseLine()`.
+On the other hand, my code in Go would probably be less well structured as this Dart code.
