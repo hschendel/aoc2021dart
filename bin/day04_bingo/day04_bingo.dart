@@ -3,6 +3,7 @@ import 'dart:convert';
 
 import 'package:tuple/tuple.dart';
 
+// only one executable as the second part did not need much more code.
 void main() async {
   final file = File('input.txt');
   try {
@@ -10,9 +11,11 @@ void main() async {
         .openRead()
         .transform(utf8.decoder)
         .transform(LineSplitter())
-        .fold<BingoFileParser>(BingoFileParser(), (p, line) => p.parseLine(line));
+        .fold<BingoFileParser>(
+            BingoFileParser(), (p, line) => p.parseLine(line));
     final result = playBoards(parser.numbers, parser.boards);
     stdout.writeln(result.firstWinningBoardScore);
+    stdout.writeln(result.lastWinningBoardScore);
   } catch (e) {
     stderr.addError(e);
   }
@@ -20,7 +23,7 @@ void main() async {
 
 BingoGameResult playBoards(List<int> numbers, List<BingoBoard> boards) {
   final result = BingoGameResult();
-  for(var boardIndex = 0; boardIndex < boards.length; boardIndex++) {
+  for (var boardIndex = 0; boardIndex < boards.length; boardIndex++) {
     final board = boards[boardIndex];
     final boardResult = board.play(numbers);
     result.addBoardResult(boardIndex, boardResult);
@@ -30,7 +33,9 @@ BingoGameResult playBoards(List<int> numbers, List<BingoBoard> boards) {
 
 class BingoGameResult {
   int? _winningNumberIndex;
+  int? _lastWinningNumberIndex;
   final List<Tuple2<int, int>> _winningBoards = [];
+  final List<Tuple2<int, int>> _lastWinningBoards = [];
 
   void addBoardResult(int boardIndex, BingoBoardResult boardResult) {
     if (!boardResult.complete) {
@@ -39,17 +44,25 @@ class BingoGameResult {
     final entry = Tuple2<int, int>(boardIndex, boardResult.score!);
     if (_winningNumberIndex == null) {
       _winningNumberIndex = boardResult.winIndex;
+      _lastWinningNumberIndex = boardResult.winIndex;
       _winningBoards.add(entry);
+      _lastWinningBoards.add(entry);
       return;
     }
-    if (_winningNumberIndex! < boardResult.winIndex!) {
-      return;
+    if (_winningNumberIndex! >= boardResult.winIndex!) {
+      if (_winningNumberIndex! > boardResult.winIndex!) {
+        _winningBoards.clear();
+      }
+      _winningNumberIndex = boardResult.winIndex!;
+      _winningBoards.add(entry);
     }
-    if (_winningNumberIndex! > boardResult.winIndex!) {
-      _winningBoards.clear();
+    if (_lastWinningNumberIndex! <= boardResult.winIndex!) {
+      if (_lastWinningNumberIndex! < boardResult.winIndex!) {
+        _lastWinningBoards.clear();
+      }
+      _lastWinningNumberIndex = boardResult.winIndex!;
+      _lastWinningBoards.add(entry);
     }
-    _winningNumberIndex = boardResult.winIndex!;
-    _winningBoards.add(entry);
   }
 
   List<Tuple2<int, int>> get winningBoardsWithScore => _winningBoards;
@@ -57,7 +70,17 @@ class BingoGameResult {
   bool get hasWinningBoard => _winningBoards.isNotEmpty;
 
   int get firstWinningBoardScore {
-    return _winningBoards.fold(-1, (bestScore, entry) => entry.item2 > bestScore ? entry.item2 : bestScore);
+    return _winningBoards.fold(
+        -1,
+        (bestScore, entry) =>
+            entry.item2 > bestScore ? entry.item2 : bestScore);
+  }
+
+  int get lastWinningBoardScore {
+    return _lastWinningBoards.fold(
+        100 * 25 * 100,
+        (worstScore, entry) =>
+            entry.item2 < worstScore ? entry.item2 : worstScore);
   }
 }
 
@@ -93,7 +116,8 @@ class BingoFileParser {
 
     if (_boardLineIdx == 5) {
       _boards.add(BingoBoard(_boardLines));
-      _boardLines = []; // always new so the object can be used inside BingoBoard
+      _boardLines =
+          []; // always new so the object can be used inside BingoBoard
       _boardLineIdx = -1;
     }
 
@@ -108,7 +132,8 @@ class BingoFileParser {
     }
   }
 
-  static final _boardLineRegexp = RegExp(r"^\s*(\d+)\s+(\d+)\s+(\d+)\s+(\d+)\s+(\d+)\s*$");
+  static final _boardLineRegexp =
+      RegExp(r"^\s*(\d+)\s+(\d+)\s+(\d+)\s+(\d+)\s+(\d+)\s*$");
 
   List<int> _parseBoardLine(String line) {
     final match = _boardLineRegexp.firstMatch(line);
@@ -117,7 +142,7 @@ class BingoFileParser {
     }
     List<int> values = [];
     try {
-      for (var i=1; i <= 5; i++) {
+      for (var i = 1; i <= 5; i++) {
         values.add(int.parse(match.group(i)!));
       }
     } on FormatException catch (e) {
@@ -132,9 +157,9 @@ class BingoBoard {
   final _numberToPos = <int, Tuple2<int, int>>{};
 
   BingoBoard(List<List<int>> board) {
-    for (var row=0; row < board.length; row++) {
+    for (var row = 0; row < board.length; row++) {
       final rowData = board[row];
-      for (var col=0; col < rowData.length; col++) {
+      for (var col = 0; col < rowData.length; col++) {
         final pos = Tuple2<int, int>(row, col);
         _posToNumber[pos] = rowData[col];
         _numberToPos[rowData[col]] = pos;
@@ -144,7 +169,7 @@ class BingoBoard {
 
   BingoBoardResult play(List<int> numbers) {
     final state = _BingoBoardState();
-    for(var i=0; i < numbers.length; i++) {
+    for (var i = 0; i < numbers.length; i++) {
       final number = numbers[i];
       final pos = _numberToPos[number];
       if (pos == null) {
@@ -162,7 +187,7 @@ class BingoBoard {
 
   int _sumOfPositions(List<Tuple2<int, int>> positions) {
     int sum = 0;
-    for(final pos in positions) {
+    for (final pos in positions) {
       final number = _posToNumber[pos]!;
       sum += number;
     }
@@ -216,7 +241,9 @@ class BingoBoardResult {
   final int? winIndex;
   final int? score;
 
-  BingoBoardResult.incomplete() : winIndex = null, score = null;
+  BingoBoardResult.incomplete()
+      : winIndex = null,
+        score = null;
   BingoBoardResult.complete(int this.winIndex, int this.score);
 
   bool get complete => winIndex != null;

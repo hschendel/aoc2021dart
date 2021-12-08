@@ -1,8 +1,9 @@
 import 'package:test/test.dart';
-import '../../bin/day04_bingo/day04a_bingo.dart';
+import '../../bin/day04_bingo/day04_bingo.dart';
 
 void main() {
-  const testInput = """7,4,9,5,11,17,23,2,0,14,21,24,10,16,13,6,15,25,12,22,18,20,8,19,3,26,1
+  const testInput =
+      """7,4,9,5,11,17,23,2,0,14,21,24,10,16,13,6,15,25,12,22,18,20,8,19,3,26,1
 
 22 13 17 11  0
  8  2 23  4 24
@@ -23,12 +24,13 @@ void main() {
  2  0 12  3  7
 """;
   final lines = testInput.split("\n");
-  test("bingo example should yield score 4512 for board at index 2", () {
-    final parser = lines.fold<BingoFileParser>(BingoFileParser(), (p, line) => p.parseLine(line));
+  test("bingo example", () {
+    final parser = lines.fold<BingoFileParser>(
+        BingoFileParser(), (p, line) => p.parseLine(line));
     final result = playBoards(parser.numbers, parser.boards);
     expect(result.hasWinningBoard, equals(true));
     expect(result.winningBoardsWithScore.length, equals(1));
     expect(result.firstWinningBoardScore, equals(4512));
+    expect(result.lastWinningBoardScore, equals(1924));
   });
 }
-
