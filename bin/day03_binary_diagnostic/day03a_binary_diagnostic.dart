@@ -9,7 +9,8 @@ void main() async {
         .transform(utf8.decoder)
         .transform(LineSplitter())
         .map((line) => _parseBinary(line))
-        .fold<_BitCounter>(_BitCounter(), (counter, word) => counter.count(word));
+        .fold<_BitCounter>(
+            _BitCounter(), (counter, word) => counter.count(word));
     final gammaRate = _binaryToInt(counter.mostCommonBits);
     final epsilonRate = _binaryToInt(counter.leastCommonBits);
     final powerConsumption = gammaRate * epsilonRate;
@@ -21,11 +22,16 @@ void main() async {
 
 List<bool> _parseBinary(String s) {
   final word = <bool>[];
-  for(var i=0; i < s.length; i++) {
+  for (var i = 0; i < s.length; i++) {
     switch (s[i]) {
-      case '0': word.add(false); break;
-      case '1': word.add(true); break;
-      default: throw FormatException("invalid character \"${s[i]}\"", s);
+      case '0':
+        word.add(false);
+        break;
+      case '1':
+        word.add(true);
+        break;
+      default:
+        throw FormatException("invalid character \"${s[i]}\"", s);
     }
   }
   return word;
@@ -34,7 +40,7 @@ List<bool> _parseBinary(String s) {
 int _binaryToInt(List<bool> word) {
   var bitValue = 1;
   var res = 0;
-  for(var i=word.length-1; i >= 0; i--) {
+  for (var i = word.length - 1; i >= 0; i--) {
     if (word[i]) {
       res += bitValue;
     }
@@ -55,8 +61,8 @@ class _BitCounter {
       _wordWidth = word.length;
     }
     _valuesCounted++;
-    for (int i=0; i < word.length; i++) {
-      if(word[i]) {
+    for (int i = 0; i < word.length; i++) {
+      if (word[i]) {
         _increaseTrueCountAt(i);
       }
     }
@@ -66,7 +72,7 @@ class _BitCounter {
   int get wordWidth => _wordWidth;
 
   _increaseTrueCountAt(int bit) {
-    while(bit >= _trueCounts.length) {
+    while (bit >= _trueCounts.length) {
       _trueCounts.add(0);
     }
     _trueCounts[bit]++;
@@ -93,7 +99,7 @@ class _BitCounter {
 
   List<bool> get mostCommonBits {
     final l = <bool>[];
-    for (var i=0; i < wordWidth; i++) {
+    for (var i = 0; i < wordWidth; i++) {
       l.add(mostCommonAt(i));
     }
     return l;
@@ -101,7 +107,7 @@ class _BitCounter {
 
   List<bool> get leastCommonBits {
     final l = <bool>[];
-    for (var i=0; i < _wordWidth; i++) {
+    for (var i = 0; i < _wordWidth; i++) {
       l.add(leastCommonAt(i));
     }
     return l;

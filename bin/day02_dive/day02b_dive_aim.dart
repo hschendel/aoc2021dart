@@ -9,7 +9,8 @@ void main() async {
         .transform(utf8.decoder)
         .transform(LineSplitter())
         .map((line) => _DiveCommand.fromString(line))
-        .fold<_Submarine>(_Submarine(), (submarine, command) => submarine.applyCommand(command));
+        .fold<_Submarine>(_Submarine(),
+            (submarine, command) => submarine.applyCommand(command));
     final answer = submarine.depth * submarine.position;
     stdout.writeln(answer);
   } catch (e) {
@@ -22,10 +23,13 @@ class _Submarine {
   int _depth;
   int _aim;
 
-  _Submarine({int position = 0, int depth = 0, int aim = 0}) : _position = position, _depth = depth, _aim = aim;
+  _Submarine({int position = 0, int depth = 0, int aim = 0})
+      : _position = position,
+        _depth = depth,
+        _aim = aim;
 
   _Submarine applyCommand(_DiveCommand command) {
-    switch(command.type) {
+    switch (command.type) {
       case _DiveCommandType.forward:
         _position += command.param;
         _depth += _aim * command.param;
@@ -49,7 +53,8 @@ class _Submarine {
 enum _DiveCommandType { forward, down, up }
 
 class _DiveCommand {
-  static final RegExp _parseRegExp = RegExp(r"^(forward|down|up) (\d+)$", unicode: true);
+  static final RegExp _parseRegExp =
+      RegExp(r"^(forward|down|up) (\d+)$", unicode: true);
   late final _DiveCommandType type;
   late final int param;
 
@@ -60,7 +65,7 @@ class _DiveCommand {
     if (match == null) {
       throw FormatException("invalid command", s);
     }
-    switch(match.group(1)) {
+    switch (match.group(1)) {
       case "forward":
         type = _DiveCommandType.forward;
         break;

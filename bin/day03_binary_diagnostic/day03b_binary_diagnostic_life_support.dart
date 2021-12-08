@@ -14,7 +14,8 @@ void main() async {
         .toList();
     final oxygenGeneratorRating = narrowMostCommonToOne(input);
     final co2ScrubberRating = narrowLeastCommonToOne(input);
-    final answer = _binaryToInt(oxygenGeneratorRating) * _binaryToInt(co2ScrubberRating);
+    final answer =
+        _binaryToInt(oxygenGeneratorRating) * _binaryToInt(co2ScrubberRating);
     stdout.writeln(answer);
   } catch (e) {
     stderr.addError(e);
@@ -23,11 +24,16 @@ void main() async {
 
 List<bool> parseBinary(String s) {
   final word = <bool>[];
-  for(var i=0; i < s.length; i++) {
+  for (var i = 0; i < s.length; i++) {
     switch (s[i]) {
-      case '0': word.add(false); break;
-      case '1': word.add(true); break;
-      default: throw FormatException("invalid character \"${s[i]}\"", s);
+      case '0':
+        word.add(false);
+        break;
+      case '1':
+        word.add(true);
+        break;
+      default:
+        throw FormatException("invalid character \"${s[i]}\"", s);
     }
   }
   return word;
@@ -36,7 +42,7 @@ List<bool> parseBinary(String s) {
 int _binaryToInt(List<bool> word) {
   var bitValue = 1;
   var res = 0;
-  for(var i=word.length-1; i >= 0; i--) {
+  for (var i = word.length - 1; i >= 0; i--) {
     if (word[i]) {
       res += bitValue;
     }
@@ -89,11 +95,12 @@ List<bool> narrowLeastCommonToOne(List<List<bool>> input) {
   return input[0];
 }
 
-Tuple2<List<List<bool>>, List<List<bool>>> splitByBit(List<List<bool>> input, int bit) {
+Tuple2<List<List<bool>>, List<List<bool>>> splitByBit(
+    List<List<bool>> input, int bit) {
   final listFalse = <List<bool>>[];
   final listTrue = <List<bool>>[];
-  for(final word in input) {
-    if(word[bit]) {
+  for (final word in input) {
+    if (word[bit]) {
       listTrue.add(word);
     } else {
       listFalse.add(word);
