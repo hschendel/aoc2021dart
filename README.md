@@ -47,3 +47,7 @@ Learned about the `try { ... } on SomeTypeException catch (e) { ... }` syntax.
 I miss Go's `defer` to always do `_lineNo++` on exiting `parseLine()`.
 On the other hand, my code in Go would probably be less well structured as this Dart code.
 That allowed me to easily add the last winning board logic in step two.
+
+# Day 5
+
+
