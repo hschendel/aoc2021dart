@@ -7,15 +7,17 @@ void main(List<String> arguments) async {
   final filename = arguments.isNotEmpty ? arguments[0] : "input.txt";
   final file = File(filename);
   try {
-    var lines = await file.openRead()
-      .transform(utf8.decoder)
-      .transform(LineSplitter())
-      .fold<List<Line>>(<Line>[], (lines, lineStr) {
-        final line = Line.parse(lineStr);
-        lines.add(line);
-        return lines;
-      });
-    lines = lines.where((line) => line.isHorizontal || line.isVertical).toList();
+    var lines = await file
+        .openRead()
+        .transform(utf8.decoder)
+        .transform(LineSplitter())
+        .fold<List<Line>>(<Line>[], (lines, lineStr) {
+      final line = Line.parse(lineStr);
+      lines.add(line);
+      return lines;
+    });
+    lines =
+        lines.where((line) => line.isHorizontal || line.isVertical).toList();
     final points = intersectionPoints(lines);
     stdout.writeln(points.length);
   } catch (e) {
@@ -26,7 +28,7 @@ void main(List<String> arguments) async {
 Set<Point<int>> intersectionPoints(List<Line> lines) {
   final points = <Point<int>>{};
   final addedLines = <Line>[];
-  for(final line in lines) {
+  for (final line in lines) {
     for (final otherLine in addedLines) {
       points.addAll(line.intersect(otherLine));
     }
@@ -66,13 +68,19 @@ class Line {
       return intersection;
     } else if (isVertical && other.isHorizontal) {
       final p = Point(a.x, other.a.y);
-      if (other.minX <= p.x && p.x <= other.maxX && minY <= p.y && p.y <= maxY) {
+      if (other.minX <= p.x &&
+          p.x <= other.maxX &&
+          minY <= p.y &&
+          p.y <= maxY) {
         return [p];
       }
       return [];
     } else if (isHorizontal && other.isVertical) {
       final p = Point(other.a.x, a.y);
-      if (minX <= p.x && p.x <= maxX && other.minY <= p.y && p.y <= other.maxY) {
+      if (minX <= p.x &&
+          p.x <= maxX &&
+          other.minY <= p.y &&
+          p.y <= other.maxY) {
         return [p];
       }
       return [];
@@ -96,7 +104,8 @@ class Line {
     return "${a.x},${a.y} -> ${b.x},${b.y}";
   }
 
-  static final _parseRegExp = RegExp(r"^\s*(\d+)\s*,\s*(\d+)\s*\->\s*(\d+)\s*,\s*(\d+)\s*$");
+  static final _parseRegExp =
+      RegExp(r"^\s*(\d+)\s*,\s*(\d+)\s*\->\s*(\d+)\s*,\s*(\d+)\s*$");
 
   static Line parse(String s) {
     final match = _parseRegExp.firstMatch(s);
@@ -107,6 +116,6 @@ class Line {
     final ay = int.parse(match.group(2)!);
     final bx = int.parse(match.group(3)!);
     final by = int.parse(match.group(4)!);
-    return Line(Point(ax,ay), Point(bx,by));
+    return Line(Point(ax, ay), Point(bx, by));
   }
 }

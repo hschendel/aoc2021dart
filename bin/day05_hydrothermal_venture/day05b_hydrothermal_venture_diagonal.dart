@@ -2,12 +2,12 @@ import 'dart:io';
 import 'dart:convert';
 import 'dart:math';
 
-
 void main(List<String> arguments) async {
   final filename = arguments.isNotEmpty ? arguments[0] : "input.txt";
   final file = File(filename);
   try {
-    var lines = await file.openRead()
+    var lines = await file
+        .openRead()
         .transform(utf8.decoder)
         .transform(LineSplitter())
         .fold<List<Line>>(<Line>[], (lines, lineStr) {
@@ -25,12 +25,13 @@ void main(List<String> arguments) async {
 Set<Point<int>> intersectionPoints(List<Line> lines) {
   final points = <Point<int>>{};
   final addedLines = <Line>[];
-  for(final line in lines) {
+  for (final line in lines) {
     for (final otherLine in addedLines) {
       final intersection = line.intersect(otherLine);
       for (final p in intersection) {
         if (p.x == 2 && p.y == 0) {
-          stdout.writeln("(2,0) said to be intersection of $line and $otherLine");
+          stdout
+              .writeln("(2,0) said to be intersection of $line and $otherLine");
         }
       }
       points.addAll(intersection);
@@ -47,7 +48,10 @@ class Line {
   Line(this.a, this.b);
 
   List<Point<int>> intersect(Line other) {
-    if(maxX < other.minX || other.maxX < minX || maxY < other.minY || other.maxY < minY) {
+    if (maxX < other.minX ||
+        other.maxX < minX ||
+        maxY < other.minY ||
+        other.maxY < minY) {
       return [];
     }
     if (isHorizontal && other.isHorizontal) {
@@ -74,13 +78,19 @@ class Line {
       return intersection;
     } else if (isVertical && other.isHorizontal) {
       final p = Point(a.x, other.a.y);
-      if (other.minX <= p.x && p.x <= other.maxX && minY <= p.y && p.y <= maxY) {
+      if (other.minX <= p.x &&
+          p.x <= other.maxX &&
+          minY <= p.y &&
+          p.y <= maxY) {
         return [p];
       }
       return [];
     } else if (isHorizontal && other.isVertical) {
       final p = Point(other.a.x, a.y);
-      if (minX <= p.x && p.x <= maxX && other.minY <= p.y && p.y <= other.maxY) {
+      if (minX <= p.x &&
+          p.x <= maxX &&
+          other.minY <= p.y &&
+          p.y <= other.maxY) {
         return [p];
       }
       return [];
@@ -120,14 +130,16 @@ class Line {
         if (yt == null || yo == null || yt != yo) {
           continue;
         }
-        intersection.add(Point(x,yt));
+        intersection.add(Point(x, yt));
       }
       return intersection;
     } else {
       if (!isVertical && !isHorizontal && !isDiagonal) {
-        throw UnimplementedError("line is not horizontal, vertical, or diagonal: $this");
+        throw UnimplementedError(
+            "line is not horizontal, vertical, or diagonal: $this");
       }
-      throw UnimplementedError("line is not horizontal, vertical, or diagonal: $other");
+      throw UnimplementedError(
+          "line is not horizontal, vertical, or diagonal: $other");
     }
   }
 
@@ -141,7 +153,7 @@ class Line {
   Point<int> get left => a.x <= b.x ? a : b;
   Point<int> get right => a.x <= b.x ? b : a;
   Point<int> get top => a.y <= b.y ? a : b;
-  Point<int> get bottom => a.y <= b.y ? b: a;
+  Point<int> get bottom => a.y <= b.y ? b : a;
 
   int get _coeffX1 {
     if (isHorizontal) {
@@ -186,11 +198,7 @@ class Line {
     if (isVertical) {
       return null;
     }
-    final c1 = _coeffX1;
-    final c1x = c1 * x;
-    final c2 = _coeffX2;
-    final c1xPlusC2 = c1x + c2;
-    return c1xPlusC2;
+    return _coeffX1 * x + _coeffX2;
   }
 
   int? xAtY(int y) {
@@ -208,7 +216,8 @@ class Line {
     return "${a.x},${a.y} -> ${b.x},${b.y}";
   }
 
-  static final _parseRegExp = RegExp(r"^\s*(\d+)\s*,\s*(\d+)\s*\->\s*(\d+)\s*,\s*(\d+)\s*$");
+  static final _parseRegExp =
+      RegExp(r"^\s*(\d+)\s*,\s*(\d+)\s*\->\s*(\d+)\s*,\s*(\d+)\s*$");
 
   static Line parse(String s) {
     final match = _parseRegExp.firstMatch(s);
@@ -219,6 +228,6 @@ class Line {
     final ay = int.parse(match.group(2)!);
     final bx = int.parse(match.group(3)!);
     final by = int.parse(match.group(4)!);
-    return Line(Point(ax,ay), Point(bx,by));
+    return Line(Point(ax, ay), Point(bx, by));
   }
 }
