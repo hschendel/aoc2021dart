@@ -13,7 +13,7 @@ on day 6 on my spare time, and while my understanding of Dart seems to be growin
 picture perfect Dart code. So please do not let yourself be misguided on your Dart journey.
 If you have suggestions on how to do thinks better, I would be pleased to learn from you :)
 
-# Day 1
+## Day 1
 
 Until today I never processed a file in Dart. A bit of searching led me to the stream based
 approach that seems to be idiomatic Dart:
@@ -29,32 +29,32 @@ collecting the sliding window sums. The of course the counting of the increases 
 using the stream's `fold` method.
 So already for day 1 I learned a lot about Dart streams I did not know beforehand :)
 
-# Day 2
+## Day 2
 
 The stream based approach using `fold` still works. Also, I learned to use regular expressions
 in Dart.
 
-# Day 3
+## Day 3
 
 For the first part, the stream's `fold` method was sufficient again.
 For the second part I first tried to implement a `StreamTransformer` that does the narrowing
 down, but then realized that I need to keep the whole list in memory anyway, so I resorted to
 a simple list-based approach. I have the feeling this could have been done better though...
 
-# Day 4
+## Day 4
 
 Learned about the `try { ... } on SomeTypeException catch (e) { ... }` syntax.
 I miss Go's `defer` to always do `_lineNo++` on exiting `parseLine()`.
 On the other hand, my code in Go would probably be less well structured as this Dart code.
 That allowed me to easily add the last winning board logic in step two.
 
-# Day 5
+## Day 5
 
 In step 2 I realized that I should have followed Eric's lead to just draw the lines into a map,
 instead of the complex and test intensive OOP monster I created. Still, it works. But next
 time, I will go for the simple and stupid approach. Really.
 
-# Day 6
+## Day 6
 
 This is the exponential growth trap. And who does not know about it nowadays in times of the
 pandemic? Still, for step 1 I let myself led by input format, using that to represent the state
@@ -76,3 +76,11 @@ final List<int> _counts = List.filled(9, 0, growable: true);
 ```
 
 Interesting. That is how Dart tries to cope with the absence of real arrays then ;)
+
+## Day 7
+
+This time I learned about the `~/` operator for integer division.
+Other than that I think for step two it was important complexity-wise to use the closed term
+`(dist + 1) * dist ~/ 2` for the fuel cost of one move instead of a for loop.
+Also, my first idea was something like a binary search to reduce time complexity,
+but nevertheless the straightforward approach worked fine.
