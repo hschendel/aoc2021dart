@@ -13,7 +13,7 @@ void main(List<String> arguments) async {
         .transform(LineSplitter())
         .first;
     List<int> positions = firstLine.split(",").map(int.parse).toList();
-    final result = dumbBestPosition(positions);
+    final result = bestPosition(positions);
     stdout.writeln(result.item1);
     stdout.writeln(result.item2);
   } catch (e) {
@@ -21,11 +21,28 @@ void main(List<String> arguments) async {
   }
 }
 
-Tuple2<int, int> dumbBestPosition(List<int> positions) {
+Tuple2<int, int> bestPosition(List<int> positions) {
+  final uniquePositions = <int, int>{};
+  int minPos = -1;
+  int maxPos = -1;
+  for(final pos in positions) {
+    var count = uniquePositions[pos] ?? 0;
+    uniquePositions[pos] = count + 1;
+    if (minPos == -1) {
+      minPos = pos;
+      maxPos = pos;
+      continue;
+    }
+    if (pos < minPos) {
+      minPos = pos;
+    } else if (pos > maxPos) {
+      maxPos = pos;
+    }
+  }
   int bestPosition = -1;
   int bestMoveCost = -1;
-  for(final toPos in positions) {
-    final moveCost = moveCostSum(positions, toPos);
+  for(var toPos=minPos; toPos <= maxPos; toPos++) {
+    final moveCost = moveCostSum(uniquePositions, toPos);
     if (bestPosition == -1 || moveCost < bestMoveCost) {
       bestPosition = toPos;
       bestMoveCost = moveCost;
@@ -34,10 +51,12 @@ Tuple2<int, int> dumbBestPosition(List<int> positions) {
   return Tuple2<int, int>(bestPosition, bestMoveCost);
 }
 
-int moveCostSum(List<int> positions, int toPos) {
+int moveCostSum(Map<int, int> uniquePositions, int toPos) {
   var sum = 0;
-  for(final pos in positions) {
-    sum += (pos - toPos).abs();
+  for(final posEntry in uniquePositions.entries) {
+    final pos = posEntry.key;
+    final count = posEntry.value;
+    sum += (pos - toPos).abs() * count;
   }
   return sum;
 }
