@@ -50,4 +50,6 @@ That allowed me to easily add the last winning board logic in step two.
 
 # Day 5
 
-
+In step 2 I realized that I should have followed Eric's lead to just draw the lines into a map,
+instead of the complex and test intensive OOP monster I created. Still, it works. But next
+time, I will go for the simple and stupid approach. Really.
