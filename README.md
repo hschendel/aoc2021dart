@@ -53,3 +53,26 @@ That allowed me to easily add the last winning board logic in step two.
 In step 2 I realized that I should have followed Eric's lead to just draw the lines into a map,
 instead of the complex and test intensive OOP monster I created. Still, it works. But next
 time, I will go for the simple and stupid approach. Really.
+
+# Day 6
+
+This is the exponential growth trap. And who does not know about it nowadays in times of the
+pandemic? Still, for step 1 I let myself led by input format, using that to represent the state
+of the fish population. Which of course does not work for 256 days. So, the input format has
+to be replaced by something more up to the job - a list of counts by "fish state" (0 to 8).
+
+I also learned something about Dart's lists. If you use this, the number of elements in the list
+cannot be changed (in Dart speak it is not growable):
+
+```dart
+final List<int> _counts = List.filled(9, 0);
+```
+
+But my `day()` method left-shifts `_counts`, and then adds the new fish at the end, and
+also adds to position 6 the count of the fishes that spawn. So I have to write:
+
+```dart
+final List<int> _counts = List.filled(9, 0, growable: true);
+```
+
+Interesting. That is how Dart tries to cope with the absence of real arrays then ;)
