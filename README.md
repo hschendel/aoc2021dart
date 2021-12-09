@@ -84,3 +84,7 @@ Other than that I think for step two it was important complexity-wise to use the
 `(dist + 1) * dist ~/ 2` for the fuel cost of one move instead of a for loop.
 Also, my first idea was something like a binary search to reduce time complexity,
 but nevertheless the straightforward approach worked fine.
+
+## Day 8
+
+Learned about type qualification using the `is` operator.
