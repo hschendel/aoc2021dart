@@ -87,4 +87,10 @@ but nevertheless the straightforward approach worked fine.
 
 ## Day 8
 
-Learned about type qualification using the `is` operator.
+Learned about type qualification using the `is` operator. Also about what to override in order
+to efficiently use a type as a key for `Map`. Java is calling ;)
+For step 2 I again wasted a lot of time on trying to build some algorithmic learning crap. Then I
+reconsidered, and resorted to dynamic programming. There are only 7! = 5040 different mappings
+of the segments to each other.
+
+
