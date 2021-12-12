@@ -121,3 +121,8 @@ Iterable<Point<int>> neighbours(int x, int y) sync* { ... }
 Other than that, not much to see here.
 
 ## Day 12
+
+It is a good thing that two big caves are never connected. Other than that, in step 2
+I first got a stack overflow. As my `visited` set is passed up and down the call stack
+it has to be left clean. I did forget that if I was using a small cave twice, it must not
+be removed from the `visited` set. With a functional implementation I would not have run into this bug.
