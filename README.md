@@ -109,3 +109,12 @@ sizes.reversed.take(3).fold(1, (product, size) => product * size)
 That one felt easy to me, as I was lucky starting with a parser stack that I could then
 use to solve step 2.
 
+## Day 11
+
+Again, Dart's generator construct looks like it was just added for algorithmic gymnastics like
+these, where I need to iterate over an octopuses' neighbours.
+
+```dart
+Iterable<Point<int>> neighbours(int x, int y) sync* { ... }
+```
+
