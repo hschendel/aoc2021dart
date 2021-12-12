@@ -118,3 +118,4 @@ these, where I need to iterate over an octopuses' neighbours.
 Iterable<Point<int>> neighbours(int x, int y) sync* { ... }
 ```
 
+Other than that, not much to see here.
