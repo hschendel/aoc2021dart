@@ -96,6 +96,16 @@ feature using `yield*`. Came in handy here.
 
 ## Day 9
 
+In the second part I had a bit of a bad gut feeling about how to count basins that are separated
+from their neighbour not by a 9. But the input contains lot of nines, and my recursive implementation
+worked just fine. I start to like `List`'s expressiveness, e.g. here
 
+```dart
+sizes.reversed.take(3).fold(1, (product, size) => product * size)
+```
 
+## Day 10
+
+That one felt easy to me, as I was lucky starting with a parser stack that I could then
+use to solve step 2.
 

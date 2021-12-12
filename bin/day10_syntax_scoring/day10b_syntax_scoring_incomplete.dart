@@ -42,7 +42,7 @@ Tuple2<String, List<String>> checkLine(String line) {
 
 int scoreLine(String line) {
   final t = checkLine(line);
-  if (t.item1 == "corrupted" || t.item2.isEmpty) {
+  if (t.item2.isEmpty) {
     return 0;
   }
   return scoreStack(t.item2);
