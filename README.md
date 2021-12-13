@@ -107,7 +107,7 @@ sizes.reversed.take(3).fold(1, (product, size) => product * size)
 ## Day 10
 
 That one felt easy to me, as I was lucky starting with a parser stack that I could then
-use to solve step 2.
+use to solve part 2.
 
 ## Day 11
 
@@ -122,7 +122,13 @@ Other than that, not much to see here.
 
 ## Day 12
 
-It is a good thing that two big caves are never connected. Other than that, in step 2
+It is a good thing that two big caves are never connected. Other than that, in part 2
 I first got a stack overflow. As my `visited` set is passed up and down the call stack
 it has to be left clean. I did forget that if I was using a small cave twice, it must not
 be removed from the `visited` set. With a functional implementation I would not have run into this bug.
+
+## Day 13
+
+The pattern of using the parser on a stream continues to work well. Other than that, nothing to
+see here. I was a bit unsure if the part two also asks us to implement some kind of character
+recognition, but I decided to ignore that doubt ;)
