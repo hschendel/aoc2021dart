@@ -132,3 +132,15 @@ be removed from the `visited` set. With a functional implementation I would not 
 The pattern of using the parser on a stream continues to work well. Other than that, nothing to
 see here. I was a bit unsure if the part two also asks us to implement some kind of character
 recognition, but I decided to ignore that doubt ;)
+
+## Day 14
+
+Part two took me some thinking. Good thing is I was traveling, so I was not able to waste to much
+time coding. The simple realization that I only need to count the insertions came to me while driving :D
+Other than that I learned the correct operator precedence for `??` through
+
+```dart
+elemCount[ch] = (elemCount[ch] ?? 0) + 1;
+```
+
+Try leaving the parentheses away and you will get surprising results.
