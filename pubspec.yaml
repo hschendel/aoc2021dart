@@ -8,6 +8,7 @@ environment:
 
 dependencies:
   tuple:
+  collection:
 #   path: ^1.8.0
 
 dev_dependencies:
