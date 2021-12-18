@@ -144,3 +144,8 @@ elemCount[ch] = (elemCount[ch] ?? 0) + 1;
 ```
 
 Try leaving the parentheses away and you will get surprising results.
+
+## Day 15
+
+Choosing the A* algorithm turned out to work even for the expanded map in part two. Also, my
+Dart implementation of A* looks very readable to me.
