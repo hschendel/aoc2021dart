@@ -149,3 +149,8 @@ Try leaving the parentheses away and you will get surprising results.
 
 Choosing the A* algorithm turned out to work even for the expanded map in part two. Also, my
 Dart implementation of A* looks very readable to me.
+
+## Day 16
+
+I learned a bit more about stream processing. If you write a recursive-descent parser,
+`StreamIterator` is a good fit.
