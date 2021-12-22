@@ -154,3 +154,23 @@ Dart implementation of A* looks very readable to me.
 
 I learned a bit more about stream processing. If you write a recursive-descent parser,
 `StreamIterator` is a good fit.
+
+## Day 17
+
+This smells like constraint programming. If we need the y velocity to be negative, we could reformulate
+the problem by always subtracting the target max y from the y velocity, so it can always be positive.
+We could also flip the x axis, if the target area is to the left. But looking at the input,
+all this can be ignored.
+
+Still, with my limited math knowledge, I was not able to come up with a simple solver for this,
+as the formula is not linear thanks to drag and velocity.
+At least the calculation looks like trying out the options would work:
+
+```dart
+// xv is x velocity and yv is y velocity
+
+// only valid while n <= xv
+static int xAtStep(int n, int xv) => n * xv - n * (n-1) ~/2;
+
+static int yAtStep(int n, int yv) => n * yv - n * (n-1) ~/2;
+```
