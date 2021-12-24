@@ -8,7 +8,7 @@ void main(List<String> arguments) async {
   final filename = arguments.isNotEmpty ? arguments[0] : "input.txt";
   final file = File(filename);
   try {
-    final g = await file
+    await file
         .openRead()
         .transform(utf8.decoder)
         .transform(LineSplitter())
