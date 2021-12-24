@@ -175,3 +175,6 @@ as the formula is not linear thanks to drag and velocity. A few things are worth
   take -minY as the initial y velocity, it will skip the target area. So we can use it as the
   upper bound for the y velocity.
 
+## Day 18
+
+Almost straightforward. The complex definition of explode and split made unit tests necessary.
