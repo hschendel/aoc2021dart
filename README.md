@@ -186,3 +186,8 @@ due to me grudgingly accepting that somehow the input does not need to merge som
 scanners to be able to match at least one scanner with scanner 0. That made the tracking of
 the scanner positions easier.
 I start to appreciate how Dart helps me structure code.
+
+## Day 20
+
+It all sounded straightforward. But what I did not understand at first was that the infinite
+background flips in the real input. First time I had to go hunting for hints on the subreddit.
