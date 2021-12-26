@@ -197,3 +197,8 @@ background flips in the real input. First time I had to go hunting for hints on 
 Part one and two felt a bit unrelated, with part two reminding me immediately about day 14.
 So we have to operate on the "universe counts". Implementing a good representation with Dart
 went well.
+
+## Day 22
+
+Applied set theory. Dart's generator feature was again helpful. I start to grasp Dart's good
+expressiveness while maintaining readability.
