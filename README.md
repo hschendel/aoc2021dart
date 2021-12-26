@@ -191,3 +191,9 @@ I start to appreciate how Dart helps me structure code.
 
 It all sounded straightforward. But what I did not understand at first was that the infinite
 background flips in the real input. First time I had to go hunting for hints on the subreddit.
+
+## Day 21
+
+Part one and two felt a bit unrelated, with part two reminding me immediately about day 14.
+So we have to operate on the "universe counts". Implementing a good representation with Dart
+went well.
